@@ -54,7 +54,7 @@ const ChatMessageList = ({ messages }: ChatMessageListProps) => {
               }}
             >
               <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
-                {message.content}
+                {(message as any).content ?? (message as any).text}
               </Typography>
               {message.timestamp && (
                 <Typography variant="caption" sx={{ opacity: 0.6, mt: 0.5, display: 'block' }}>

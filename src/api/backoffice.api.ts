@@ -34,7 +34,7 @@ export const escalateChat = (chatId: number, body: EscalateChatBody): Promise<vo
 
 /** Send a message as support agent (appends to chat history) */
 export const sendSupportMessage = (chatId: number, text: string): Promise<void> => {
-  return apiClient.post<void>(`/chat/${chatId}/messages`, [{ role: 'support', content: text }]);
+  return apiClient.post<void>(`/chat/${chatId}/messages`, [{ role: 'assistant', content: text }]);
 };
 
 /** Get all actions */
