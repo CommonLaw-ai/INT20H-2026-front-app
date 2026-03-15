@@ -14,7 +14,7 @@ import CloseRounded from '@mui/icons-material/CloseRounded';
 import StopCircleRounded from '@mui/icons-material/StopCircleRounded';
 import ChatMessageList from '@/components/ChatMessageList';
 import ChatInput from '@/components/ChatInput';
-import { getChatDetail, patchActionRequest, escalateChat } from '@/api/backoffice.api';
+import { getChatDetail, patchActionRequest, escalateChat, sendSupportMessage } from '@/api/backoffice.api';
 import type { ChatDetailData } from '@/types/api';
 
 const STATUS_LABELS: Record<string, string> = {
@@ -62,11 +62,11 @@ const ChatDetailPage = () => {
     fetchDetail();
   }, [fetchDetail]);
 
-  /** CS manager sends a reply — this also escalates to human */
+  /** CS manager sends a reply */
   const handleSendMessage = async (text: string) => {
     setIsSending(true);
     try {
-      await escalateChat(chatId, { escalate_to_human: true, message: text });
+      await sendSupportMessage(chatId, text);
       await fetchDetail();
     } catch {
       setError('Failed to send message');
