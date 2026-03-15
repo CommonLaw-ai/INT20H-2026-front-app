@@ -1,5 +1,10 @@
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api';
 
+const DEFAULT_HEADERS = {
+  'Content-Type': 'application/json',
+  'ngrok-skip-browser-warning': 'true',
+};
+
 /** Handles response parsing and error throwing */
 const handleResponse = async <T>(response: Response): Promise<T> => {
   if (!response.ok) {
@@ -19,7 +24,7 @@ const handleResponse = async <T>(response: Response): Promise<T> => {
 const get = <T>(path: string): Promise<T> => {
   return fetch(`${BASE_URL}${path}`, {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
+    headers: DEFAULT_HEADERS,
   }).then(handleResponse<T>);
 };
 
@@ -27,7 +32,7 @@ const get = <T>(path: string): Promise<T> => {
 const post = <T>(path: string, body?: unknown): Promise<T> => {
   return fetch(`${BASE_URL}${path}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: DEFAULT_HEADERS,
     body: body ? JSON.stringify(body) : undefined,
   }).then(handleResponse<T>);
 };
@@ -36,7 +41,7 @@ const post = <T>(path: string, body?: unknown): Promise<T> => {
 const patch = <T>(path: string, body?: unknown): Promise<T> => {
   return fetch(`${BASE_URL}${path}`, {
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
+    headers: DEFAULT_HEADERS,
     body: body ? JSON.stringify(body) : undefined,
   }).then(handleResponse<T>);
 };
