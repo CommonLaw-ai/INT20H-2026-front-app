@@ -17,6 +17,13 @@ import ChatInput from '@/components/ChatInput';
 import { getChatDetail, patchActionRequest, escalateChat, sendSupportMessage } from '@/api/backoffice.api';
 import type { ChatDetailData } from '@/types/api';
 
+const ACTION_LABELS: Record<number, string> = {
+  1: 'Reset Password — Send password reset link to the user',
+  2: 'Refund Charge — Initiate a refund for a duplicate charge',
+  3: 'Block Account — Temporarily block a suspicious account',
+  4: 'Notify User — Send email notification to the user',
+};
+
 const STATUS_LABELS: Record<string, string> = {
   open_support: 'Open — Support',
   open_ai_agent: 'Open — AI Agent',
@@ -219,7 +226,7 @@ const ChatDetailPage = () => {
                 Pending Action Request
               </Typography>
               <Typography variant="body2" sx={{ mb: 2 }}>
-                Action ID: {detail.open_action.action_id}
+                {ACTION_LABELS[detail.open_action.action_id] ?? `Action #${detail.open_action.action_id}`}
               </Typography>
               <Box sx={{ display: 'flex', gap: 1 }}>
                 <Button
